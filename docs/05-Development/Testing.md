@@ -212,6 +212,7 @@ A estratégia de testes deverá evoluir junto com a aplicação, aumentando grad
 
 Este documento complementa:
 
+```
 - Backend.md
 - Frontend.md
 - ApiSpecification.md
