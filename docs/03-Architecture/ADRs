@@ -1,1 +1,357 @@
+# Architecture Decision Records (ADRs)
 
+## Objetivo
+
+Este documento registra as principais decisões arquiteturais tomadas durante o desenvolvimento da plataforma PetCare.
+
+Seu objetivo é preservar o contexto, as alternativas avaliadas e as justificativas das decisões, facilitando a manutenção e evolução do projeto.
+
+Cada ADR representa uma decisão importante e permanente da arquitetura.
+
+---
+
+# Estrutura de um ADR
+
+Todos os registros seguem o formato:
+
+- ID
+- Status
+- Data
+- Contexto
+- Decisão
+- Consequências
+
+---
+
+# ADR-001 — Arquitetura em Camadas
+
+## Status
+
+Aceito
+
+## Contexto
+
+A aplicação precisava de uma arquitetura simples, organizada e facilmente evolutiva para um projeto de pequeno e médio porte.
+
+## Decisão
+
+Adotar uma arquitetura em camadas composta por:
+
+- Presentation
+- Application
+- Domain
+- Infrastructure
+
+## Consequências
+
+### Positivas
+
+- Separação de responsabilidades;
+- Código mais organizado;
+- Facilidade para testes;
+- Evolução incremental.
+
+### Negativas
+
+- Maior quantidade de arquivos;
+- Pequena complexidade inicial.
+
+---
+
+# ADR-002 — Backend em Go
+
+## Status
+
+Aceito
+
+## Contexto
+
+Era necessário um backend com boa performance, simplicidade e baixo consumo de recursos.
+
+## Decisão
+
+Utilizar Go como linguagem principal.
+
+Framework escolhido:
+
+- Echo
+
+## Consequências
+
+### Positivas
+
+- Excelente desempenho;
+- Simplicidade da linguagem;
+- Fácil deploy;
+- Baixo consumo de memória.
+
+### Negativas
+
+- Ecossistema menor que outras linguagens;
+- Curva de aprendizado para novos colaboradores.
+
+---
+
+# ADR-003 — Frontend em React
+
+## Status
+
+Aceito
+
+## Contexto
+
+Era necessário desenvolver uma SPA moderna com boa experiência do usuário.
+
+## Decisão
+
+Utilizar:
+
+- React
+- TypeScript
+- Vite
+
+## Consequências
+
+### Positivas
+
+- Componentização;
+- Reutilização de código;
+- Grande comunidade;
+- Excelente ecossistema.
+
+### Negativas
+
+- Gerenciamento de estado pode aumentar a complexidade.
+
+---
+
+# ADR-004 — MongoDB como Banco de Dados
+
+## Status
+
+Aceito
+
+## Contexto
+
+O domínio da aplicação possui entidades com estrutura flexível e possibilidade de evolução frequente.
+
+## Decisão
+
+Utilizar MongoDB como banco principal.
+
+## Consequências
+
+### Positivas
+
+- Flexibilidade de esquema;
+- Facilidade de evolução;
+- Boa integração com Go.
+
+### Negativas
+
+- Integridade referencial gerenciada pela aplicação;
+- Necessidade de atenção aos índices.
+
+---
+
+# ADR-005 — API REST
+
+## Status
+
+Aceito
+
+## Contexto
+
+Frontend e backend precisavam de uma comunicação padronizada.
+
+## Decisão
+
+Adotar APIs REST utilizando JSON.
+
+## Consequências
+
+### Positivas
+
+- Simplicidade;
+- Ampla compatibilidade;
+- Fácil documentação.
+
+### Negativas
+
+- Maior quantidade de requisições em alguns cenários quando comparado ao GraphQL.
+
+---
+
+# ADR-006 — Autenticação com JWT
+
+## Status
+
+Aceito
+
+## Contexto
+
+A aplicação necessita autenticação stateless para facilitar escalabilidade.
+
+## Decisão
+
+Utilizar JSON Web Token (JWT).
+
+## Consequências
+
+### Positivas
+
+- Escalabilidade;
+- Simplicidade;
+- Independência de sessão no servidor.
+
+### Negativas
+
+- Necessidade de controle de expiração;
+- Revogação de tokens exige estratégia adicional.
+
+---
+
+# ADR-007 — Identificadores UUID
+
+## Status
+
+Aceito
+
+## Contexto
+
+Era necessário utilizar identificadores únicos independentes da tecnologia de banco.
+
+## Decisão
+
+Todas as entidades utilizarão UUID.
+
+## Consequências
+
+### Positivas
+
+- IDs únicos globalmente;
+- Facilidade para integrações;
+- Independência do banco.
+
+### Negativas
+
+- Maior consumo de armazenamento em comparação a inteiros.
+
+---
+
+# ADR-008 — Docker para Padronização de Ambiente
+
+## Status
+
+Aceito
+
+## Contexto
+
+Era necessário reduzir diferenças entre ambientes de desenvolvimento e produção.
+
+## Decisão
+
+Todos os serviços deverão ser executados em containers Docker.
+
+## Consequências
+
+### Positivas
+
+- Ambiente reproduzível;
+- Facilidade de onboarding;
+- Deploy consistente.
+
+### Negativas
+
+- Necessidade de conhecimento em Docker.
+
+---
+
+# ADR-009 — Versionamento da API
+
+## Status
+
+Aceito
+
+## Contexto
+
+Mudanças futuras poderiam quebrar compatibilidade entre clientes.
+
+## Decisão
+
+Versionar a API pela URI.
+
+Exemplo:
+
+```text
+/api/v1
+```
+
+## Consequências
+
+### Positivas
+
+- Compatibilidade entre versões;
+- Evolução controlada.
+
+### Negativas
+
+- Manutenção simultânea de múltiplas versões quando necessário.
+
+---
+
+# ADR-010 — Organização do Repositório
+
+## Status
+
+Aceito
+
+## Contexto
+
+O projeto deveria manter documentação, frontend e backend organizados.
+
+## Decisão
+
+Estruturar o repositório em módulos bem definidos, separando documentação, aplicação cliente e servidor.
+
+## Consequências
+
+### Positivas
+
+- Melhor organização;
+- Navegação facilitada;
+- Escalabilidade do projeto.
+
+### Negativas
+
+- Exige disciplina na manutenção da estrutura.
+
+---
+
+# Processo para Novos ADRs
+
+Toda decisão arquitetural relevante deverá ser registrada antes da implementação quando impactar:
+
+- arquitetura da aplicação;
+- tecnologias utilizadas;
+- padrões de desenvolvimento;
+- segurança;
+- persistência;
+- integração com serviços externos.
+
+Cada novo ADR deverá receber um identificador sequencial e permanecer versionado juntamente com o código-fonte.
+
+---
+
+# Relação com outros documentos
+
+Este documento complementa:
+
+- ArchitectureOverview.md
+- FrontendArchitecture.md
+- BackendArchitecture.md
+- DatabaseDesign.md
+- ApiDesign.md
+- ApiSpecification.md
+- SecurityArchitecture.md
+- DeploymentArchitecture.md
