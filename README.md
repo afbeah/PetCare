@@ -52,7 +52,7 @@ Frontend (React)
 
         │
 
-REST API
+    REST API
 
         │
 
@@ -60,7 +60,7 @@ Backend (Go + Echo)
 
         │
 
-MongoDB
+    MongoDB
 ```
 
 Principais características:
